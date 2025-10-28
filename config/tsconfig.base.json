@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    // --- Target & Module System ---
+    "target": "ES2022",                // Target modern JavaScript features
+    "lib": ["ES2022", "DOM", "DOM.Iterable"], // Include necessary libs for both Node and Browser/Next.js
+    "module": "ESNext",                // Use modern ES modules
+    "moduleResolution": "Bundler",     // Recommended for modern tooling (Vite, Next.js, tsc --watch)
+    "jsx": "preserve",                 // Preserve JSX for frameworks like Next.js/React to handle
+    "esModuleInterop": true,           // Enables compatibility with CommonJS modules
+    "allowSyntheticDefaultImports": true, // Allows default imports from modules with no default export
+    "resolveJsonModule": true,         // Allows importing JSON files
+    "isolatedModules": true,           // Ensures files can be safely compiled/transpiled separately
+
+    // --- Strictness & Code Quality ---
+    "strict": true,                    // Enable all strict type-checking options
+    "forceConsistentCasingInFileNames": true, // Prevent OS-dependent casing issues
+    "noUnusedLocals": true,            // Report errors on unused local variables
+    "noUnusedParameters": true,        // Report errors on unused parameters
+    "noImplicitReturns": true,         // Report error when not all code paths in function return a value
+    "noFallthroughCasesInSwitch": true,// Report errors for fallthrough cases in switch statement
+    "noUncheckedIndexedAccess": true,  // Add `| undefined` to index signatures (safer array/object access)
+
+    // --- Interop & Type Checking ---
+    "skipLibCheck": true,              // Skip type checking of declaration files (.d.ts) - Speeds up compilation
+    "allowJs": true,                   // Allow JavaScript files to be included in compilation (flexible, but use TS primarily)
+    "checkJs": false,                  // Do not type-check JavaScript files by default
+
+    // --- Base Emission Settings ---
+    // Base config should NOT emit JS. Packages/apps that need to build JS
+    // will override these in their own tsconfig.json.
+    "noEmit": true,
+    "declaration": false,              // Do not emit .d.ts files by default (libraries will enable this)
+    "declarationMap": false,           // Do not emit .d.ts.map files by default
+    "sourceMap": false,                // Do not emit .js.map files by default
+
+    // --- Monorepo Path Aliases ---
+    "baseUrl": ".",                    // Required for path aliases
+    "paths": {
+      // These aliases allow importing directly from packages using '@zouari-app/*'
+      "@zouari-app/api": ["packages/api/src"],
+      "@zouari-app/auth": ["packages/auth/src"],
+      "@zouari-app/cache": ["packages/cache/src"],
+      "@zouari-app/db": ["packages/db/src"],
+      "@zouari-app/env": ["packages/env/src"],
+      "@zouari-app/errors": ["packages/errors/src"],
+      "@zouari-app/logger": ["packages/logger/src"],
+      "@zouari-app/tracing": ["packages/tracing/src"],
+      "@zouari-app/ui": ["packages/ui/src"],
+      "@zouari-app/validation": ["packages/validation/src"]
+    }
+  },
+  // --- Files included by default (can be overridden) ---
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.mjs"],
+  // --- Files excluded by default (should generally NOT be overridden) ---
+  "exclude": ["node_modules", "dist", "build", ".next", "out", ".turbo"]
+}
