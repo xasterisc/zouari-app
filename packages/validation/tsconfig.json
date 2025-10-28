@@ -1,0 +1,17 @@
+{
+  "extends": "../../config/tsconfig.base.json",
+  "compilerOptions": {
+    // --- Enable JS/Map Emission for this library ---
+    "noEmit": false,           // Override base: This package NEEDS to emit JavaScript
+    "declaration": true,       // Override base: Generate corresponding '.d.ts' files
+    "declarationMap": true,    // Override base: Generate sourcemaps for '.d.ts' files
+    "sourceMap": true,         // Override base: Generate '.js.map' files for debugging
+
+    // --- Output Directories ---
+    "outDir": "./dist",        // Specify the output directory for built files
+    "rootDir": "./src"         // Specify the root source directory
+  },
+  // --- Files to Include/Exclude ---
+  "include": ["src"],          // Only compile files within the 'src' directory
+  "exclude": ["node_modules", "dist"] // Standard excludes
+}
