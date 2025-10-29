@@ -1,9 +1,18 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "NODE_ENV",
+    "INFISICAL_PROJECT_ID",
+    "INFISICAL_ENVIRONMENT",
+    "INFISICAL_CLIENT_ID",
+    "INFISICAL_CLIENT_SECRET",
+    "INFISICAL_SITE_URL"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**", ".output/**"]
+      "outputs": [".next/**", "!.next/cache/**", "dist/**", ".output/**"],
+      "env": ["NODE_ENV"]
     },
     "//#lint": {},
     "test": {
