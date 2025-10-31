@@ -23,6 +23,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@paralleldrive/cuid2": "^3.0.4",
     "@zouari-app/env": "workspace:*",
     "@zouari-app/logger": "workspace:*",
     "drizzle-orm": "^0.44.7",
