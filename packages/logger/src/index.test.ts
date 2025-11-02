@@ -1,5 +1,5 @@
-import { describe, it, expect, afterAll } from 'vitest';
-import { logger, createLogger } from './index.js';
+import { afterAll, describe, expect, it } from 'vitest';
+import { createLogger, logger } from './index.js';
 
 describe('Logger Package', () => {
   // Silence the logger during tests to keep the test output clean
@@ -40,12 +40,8 @@ describe('Logger Package', () => {
     const child1 = createLogger({ service: 'service-one' });
     const child2 = createLogger({ service: 'service-two' });
 
-    expect(child1.bindings()).toEqual(
-      expect.objectContaining({ service: 'service-one' }),
-    );
-    expect(child2.bindings()).toEqual(
-      expect.objectContaining({ service: 'service-two' }),
-    );
+    expect(child1.bindings()).toEqual(expect.objectContaining({ service: 'service-one' }));
+    expect(child2.bindings()).toEqual(expect.objectContaining({ service: 'service-two' }));
 
     // Ensure they don't have each other's properties
     expect(child1.bindings()).not.toHaveProperty('service-two');

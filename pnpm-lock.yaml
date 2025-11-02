@@ -72,13 +72,19 @@ importers:
       '@zouari-app/validation':
         specifier: workspace:*
         version: link:../validation
+      zod:
+        specifier: ^4.1.12
+        version: 4.1.12
     devDependencies:
       '@types/node':
-        specifier: ^22.18.12
-        version: 22.18.13
+        specifier: ^24.9.2
+        version: 24.9.2
       typescript:
         specifier: ^5.9.0
         version: 5.9.3
+      vitest:
+        specifier: ^4.0.6
+        version: 4.0.6(@types/node@24.9.2)(tsx@4.20.6)
 
   packages/errors:
     devDependencies:
@@ -140,8 +146,11 @@ importers:
         version: 4.1.12
     devDependencies:
       typescript:
-        specifier: ^5.9.0
+        specifier: ^5.9.3
         version: 5.9.3
+      vitest:
+        specifier: ^4.0.5
+        version: 4.0.6(@types/node@24.9.2)(tsx@4.20.6)
 
 packages:
 

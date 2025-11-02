@@ -1,10 +1,5 @@
 import { z } from 'zod';
-import {
-  emailSchema,
-  idSchema,
-  passwordSchema,
-  userRoleSchema,
-} from './common.schema';
+import { emailSchema, idSchema, passwordSchema, userRoleSchema } from './common.schema';
 
 // =================================================================
 // --- User Management Schemas (Input for API Endpoints) ---
@@ -16,11 +11,7 @@ import {
  */
 export const userUpdateProfileSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters').trim().optional(),
-  bio: z
-    .string()
-    .max(160, 'Bio must be 160 characters or less')
-    .trim()
-    .optional(),
+  bio: z.string().max(160, 'Bio must be 160 characters or less').trim().optional(),
 });
 
 /**

@@ -9,23 +9,14 @@ import { z } from 'zod';
 export const secretZeroSchema = z.object({
   // --- Application Core ---
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
-  LOG_LEVEL: z
-    .enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal'])
-    .default('info'),
+  LOG_LEVEL: z.enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal']).default('info'),
 
   // --- Infisical (Secret Zero - Machine Identity) ---
   INFISICAL_PROJECT_ID: z.string().min(1, 'INFISICAL_PROJECT_ID is required'),
-  INFISICAL_ENVIRONMENT: z
-    .string()
-    .min(1, 'INFISICAL_ENVIRONMENT is required')
-    .default('dev'),
+  INFISICAL_ENVIRONMENT: z.string().min(1, 'INFISICAL_ENVIRONMENT is required').default('dev'),
   INFISICAL_CLIENT_ID: z.string().min(1, 'INFISICAL_CLIENT_ID is required'),
-  INFISICAL_CLIENT_SECRET: z
-    .string()
-    .min(1, 'INFISICAL_CLIENT_SECRET is required'),
-  INFISICAL_SITE_URL: z
-    .url({ message: 'INFISICAL_SITE_URL must be a valid URL' })
-    .optional(), // Optional, but recommended
+  INFISICAL_CLIENT_SECRET: z.string().min(1, 'INFISICAL_CLIENT_SECRET is required'),
+  INFISICAL_SITE_URL: z.url({ message: 'INFISICAL_SITE_URL must be a valid URL' }).optional(), // Optional, but recommended
 });
 
 /**
@@ -51,9 +42,7 @@ export const envSchema = z.object({
   REDIS_PASSWORD: z.string().optional(),
 
   // --- Authentication (Fetched) ---
-  SESSION_SECRET: z
-    .string()
-    .min(32, 'SESSION_SECRET must be at least 32 characters'),
+  SESSION_SECRET: z.string().min(32, 'SESSION_SECRET must be at least 32 characters'),
   SESSION_EXPIRES_IN: z.coerce
     .number()
     .int()
@@ -71,9 +60,7 @@ export const envSchema = z.object({
   SMTP_PORT: z.coerce.number().positive().optional(),
   SMTP_USER: z.string().optional(),
   SMTP_PASSWORD: z.string().optional(),
-  EMAIL_FROM: z
-    .email({ message: 'EMAIL_FROM must be a valid email' })
-    .optional(),
+  EMAIL_FROM: z.email({ message: 'EMAIL_FROM must be a valid email' }).optional(),
 
   // --- API Server ---
   API_PORT: z.coerce.number().int().min(1024).max(65535).default(3001),

@@ -7,7 +7,7 @@ export class AppError extends Error {
     public readonly statusCode: number,
     public readonly code: string,
     public readonly details?: unknown,
-    public readonly isOperational = true,
+    public readonly isOperational = true
   ) {
     super(message);
     this.name = this.constructor.name;
@@ -74,10 +74,7 @@ export class ConflictError extends AppError {
  * 422 Unprocessable Entity - Validation failed
  */
 export class ValidationError extends AppError {
-  constructor(
-    message = 'Validation Error',
-    details?: Record<string, string[]>,
-  ) {
+  constructor(message = 'Validation Error', details?: Record<string, string[]>) {
     super(message, 422, 'VALIDATION_ERROR', details);
   }
 }
