@@ -1,6 +1,6 @@
 {
   "name": "@zouari-app/env",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -16,16 +16,20 @@
     "dev": "tsc --watch",
     "lint": "biome lint .",
     "format": "biome format --write .",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit",
+    "test": "vitest"
   },
   "dependencies": {
     "@infisical/sdk": "^4.0.6",
     "@zouari-app/validation": "workspace:*",
     "@zouari-app/logger": "workspace:*",
-    "@zouari-app/errors": "workspace:*"
+    "@zouari-app/errors": "workspace:*",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@types/node": "^22.18.12",
-    "typescript": "^5.9.0"
+    "@types/node": "^24.9.2",
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.6"
   }
 }

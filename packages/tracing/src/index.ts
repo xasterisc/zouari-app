@@ -15,9 +15,7 @@ export function initOpenTelemetry(serviceName: string) {
     return;
   }
   if (!serviceName) {
-    console.error(
-      '[Tracing] Service name is required to initialize tracing. Tracing is disabled.',
-    );
+    console.error('[Tracing] Service name is required to initialize tracing. Tracing is disabled.');
     return;
   }
 
@@ -32,19 +30,13 @@ export function initOpenTelemetry(serviceName: string) {
       metadata.set('authorization', authHeader);
 
       const callCreds: CallCredentials = credentials.createFromMetadataGenerator(
-        (
-          _params: unknown,
-          callback: (error: Error | null, metadata?: Metadata) => void,
-        ) => {
+        (_params: unknown, callback: (error: Error | null, metadata?: Metadata) => void) => {
           callback(null, metadata);
-        },
+        }
       );
 
       // Correctly combine channel and call credentials
-      channelCreds = credentials.combineChannelCredentials(
-        channelCreds,
-        callCreds,
-      );
+      channelCreds = credentials.combineChannelCredentials(channelCreds, callCreds);
     }
 
     // --- 2. Create the Exporter ---
@@ -78,9 +70,7 @@ export function initOpenTelemetry(serviceName: string) {
       sdk
         .shutdown()
         .then(() => console.log('[Tracing] SDK shut down successfully'))
-        .catch((error) =>
-          console.error('[Tracing] Error shutting down SDK', error),
-        )
+        .catch((error) => console.error('[Tracing] Error shutting down SDK', error))
         .finally(() => process.exit(0));
     });
   } catch (error) {
