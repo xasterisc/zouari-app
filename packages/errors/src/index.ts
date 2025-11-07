@@ -1,18 +1,27 @@
 /**
- * Base application error class with HTTP status code support
+ * Base application error class
  */
 export class AppError extends Error {
-  public readonly statusCode: number;
-  public readonly isOperational: boolean;
-
-  constructor(message: string, statusCode = 500, isOperational = true) {
+  constructor(
+    message: string,
+    public readonly statusCode: number,
+    public readonly code: string,
+    public readonly details?: unknown,
+    public readonly isOperational = true
+  ) {
     super(message);
-    this.statusCode = statusCode;
-    this.isOperational = isOperational;
-
-    // Maintains proper stack trace for where error was thrown
+    this.name = this.constructor.name;
     Error.captureStackTrace(this, this.constructor);
-    Object.setPrototypeOf(this, AppError.prototype);
+  }
+
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      code: this.code,
+      statusCode: this.statusCode,
+      details: this.details,
+    };
   }
 }
 
@@ -20,29 +29,26 @@ export class AppError extends Error {
  * 400 Bad Request - Invalid client input
  */
 export class BadRequestError extends AppError {
-  constructor(message = 'Bad Request') {
-    super(message, 400);
-    Object.setPrototypeOf(this, BadRequestError.prototype);
+  constructor(message = 'Bad Request', details?: unknown) {
+    super(message, 400, 'BAD_REQUEST', details);
   }
 }
 
 /**
  * 401 Unauthorized - Authentication required or failed
  */
-export class UnauthorizedError extends AppError {
-  constructor(message = 'Unauthorized') {
-    super(message, 401);
-    Object.setPrototypeOf(this, UnauthorizedError.prototype);
+export class AuthenticationError extends AppError {
+  constructor(message = 'Authentication required') {
+    super(message, 401, 'AUTHENTICATION_ERROR');
   }
 }
 
 /**
  * 403 Forbidden - Authenticated but insufficient permissions
  */
-export class ForbiddenError extends AppError {
-  constructor(message = 'Forbidden') {
-    super(message, 403);
-    Object.setPrototypeOf(this, ForbiddenError.prototype);
+export class AuthorizationError extends AppError {
+  constructor(message = 'Insufficient permissions') {
+    super(message, 403, 'AUTHORIZATION_ERROR');
   }
 }
 
@@ -50,9 +56,8 @@ export class ForbiddenError extends AppError {
  * 404 Not Found - Requested resource doesn't exist
  */
 export class NotFoundError extends AppError {
-  constructor(message = 'Not Found') {
-    super(message, 404);
-    Object.setPrototypeOf(this, NotFoundError.prototype);
+  constructor(resource: string) {
+    super(`${resource} not found`, 404, 'NOT_FOUND');
   }
 }
 
@@ -60,9 +65,8 @@ export class NotFoundError extends AppError {
  * 409 Conflict - Request conflicts with current state
  */
 export class ConflictError extends AppError {
-  constructor(message = 'Conflict') {
-    super(message, 409);
-    Object.setPrototypeOf(this, ConflictError.prototype);
+  constructor(message: string, details?: unknown) {
+    super(message, 409, 'CONFLICT', details);
   }
 }
 
@@ -70,12 +74,8 @@ export class ConflictError extends AppError {
  * 422 Unprocessable Entity - Validation failed
  */
 export class ValidationError extends AppError {
-  public readonly errors?: Record<string, string[]>;
-
-  constructor(message = 'Validation Error', errors?: Record<string, string[]>) {
-    super(message, 422);
-    this.errors = errors;
-    Object.setPrototypeOf(this, ValidationError.prototype);
+  constructor(message = 'Validation Error', details?: Record<string, string[]>) {
+    super(message, 422, 'VALIDATION_ERROR', details);
   }
 }
 
@@ -83,9 +83,9 @@ export class ValidationError extends AppError {
  * 500 Internal Server Error - Unexpected server error
  */
 export class InternalServerError extends AppError {
-  constructor(message = 'Internal Server Error') {
-    super(message, 500, false);
-    Object.setPrototypeOf(this, InternalServerError.prototype);
+  constructor(message = 'Internal Server Error', details?: unknown) {
+    // Non-operational error by default
+    super(message, 500, 'INTERNAL_SERVER_ERROR', details, false);
   }
 }
 
@@ -94,7 +94,6 @@ export class InternalServerError extends AppError {
  */
 export class ServiceUnavailableError extends AppError {
   constructor(message = 'Service Unavailable') {
-    super(message, 503);
-    Object.setPrototypeOf(this, ServiceUnavailableError.prototype);
+    super(message, 503, 'SERVICE_UNAVAILABLE');
   }
 }

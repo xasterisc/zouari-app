@@ -1,6 +1,6 @@
 {
   "name": "@zouari-app/db",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -14,25 +14,30 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "lint": "biome lint .",
+    "lint": "biome check .",
     "format": "biome format --write .",
     "clean": "rm -rf dist drizzle",
+    "test": "vitest",
+    "type-check": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx src/migrate.ts",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "db:drop": "drizzle-kit drop"
   },
   "dependencies": {
+    "@paralleldrive/cuid2": "^3.0.4",
     "@zouari-app/env": "workspace:*",
     "@zouari-app/logger": "workspace:*",
     "drizzle-orm": "^0.44.7",
     "postgres": "^3.4.7"
   },
   "devDependencies": {
-    "@types/node": "^22.18.12",
+    "@types/node": "^24.9.2",
     "drizzle-kit": "^0.31.6",
     "drizzle-zod": "^0.8.3",
     "tsx": "^4.20.6",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "vitest": "^4.0.6"
   }
 }

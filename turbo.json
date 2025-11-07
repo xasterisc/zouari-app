@@ -19,6 +19,9 @@
       "dependsOn": ["^build"],
       "outputs": ["coverage/**"]
     },
+    "type-check": {
+      "dependsOn": ["^build"]
+    },
     "dev": {
       "cache": false,
       "persistent": true
@@ -28,6 +31,10 @@
     },
     "//#format": {
       "cache": false
-    }
+    },
+    "db:generate": { "cache": false },
+    "db:migrate": { "cache": false },
+    "db:push": { "cache": false },
+    "db:studio": { "cache": false, "persistent": true }
   }
 }

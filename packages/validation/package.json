@@ -1,6 +1,6 @@
 {
   "name": "@zouari-app/validation",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -16,12 +16,15 @@
     "dev": "tsc --watch",
     "lint": "biome lint .",
     "format": "biome format --write .",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit",
+    "test": "vitest"
   },
   "dependencies": {
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.5"
   }
 }

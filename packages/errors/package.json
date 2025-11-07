@@ -1,6 +1,6 @@
 {
   "name": "@zouari-app/errors",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -14,11 +14,12 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "lint": "biome lint .",
+    "lint": "biome check .",
     "format": "biome format --write .",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "typescript": "^5.9"
+    "typescript": "^5.9.3"
   }
 }

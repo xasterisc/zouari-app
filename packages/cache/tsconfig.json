@@ -1,0 +1,24 @@
+{
+  "extends": "../../config/tsconfig.base.json",
+  "compilerOptions": {
+    // --- Enable JS/Map Emission for this library ---
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+
+    // --- Output Directories ---
+    "outDir": "./dist",
+    "rootDir": "./src",
+
+    // --- Modern ESM & Node.js Settings ---
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    // --- Type Definitions ---
+    "types": ["node"]
+  },
+  // --- Files to Include/Exclude ---
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

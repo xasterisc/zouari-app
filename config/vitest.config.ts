@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { defineConfig } from 'vitest/config';
 
 /**
@@ -7,40 +8,40 @@ import { defineConfig } from 'vitest/config';
  */
 export default defineConfig({
   test: {
-    // Allows using Vitest globals (describe, it, expect, etc.) without importing
     globals: true,
-    // Default environment for tests (can be overridden per package, e.g., 'jsdom' for UI tests)
     environment: 'node',
-    // Coverage configuration using V8 (Node.js built-in)
     coverage: {
       provider: 'v8',
-      // Generate reports in multiple formats
       reporter: ['text', 'json', 'html'],
-      // Exclude common files/patterns from coverage reports
       exclude: [
         '**/node_modules/**',
         '**/dist/**',
         '**/build/**',
         '**/.{next,output,turbo}/**',
-        '**/*.config.*',     // Config files (js, ts, mjs, etc.)
-        '**/*.d.ts',         // Type definition files
-        '**/*.{test,spec}.*', // Test files
-        '**/__tests__/**',   // Test directories
-        '**/types.ts',       // Files named 'types.ts'
-        '**/index.ts',       // Barrel files (often just re-exports)
-        '**/main.ts',        // Entry point files (often just setup)
+        '**/*.config.*',
+        '**/*.d.ts',
+        '**/*.{test,spec}.*',
+        '**/__tests__/**',
+        '**/types.ts',
+        '**/index.ts',
+        '**/main.ts',
       ],
-      // Optional: Set thresholds for coverage checks later if desired
-      // thresholds: {
-      //   lines: 80,
-      //   functions: 80,
-      //   branches: 80,
-      //   statements: 80,
-      // },
       cleanOnRerun: true,
       clean: true,
     },
-    // Optional: Add common setup files if needed later
     // setupFiles: ['../../config/vitest.setup.ts'],
+  },
+
+  // This is necessary for tests to find imports like '@zouari-app/db'
+  resolve: {
+    alias: [
+      {
+        // This regex matches any import starting with '@zouari-app/'
+        // and maps it to the 'src' folder of the corresponding package.
+        // e.g., '@zouari-app/db' -> '.../packages/db/src'
+        find: /@zouari-app\/(.*)/,
+        replacement: path.resolve(__dirname, '../packages/$1/src'),
+      },
+    ],
   },
 });
