@@ -14,7 +14,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "lint": "biome lint .",
+    "lint": "biome check .",
     "format": "biome format --write .",
     "clean": "rm -rf dist",
     "type-check": "tsc --noEmit"

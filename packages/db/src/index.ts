@@ -1,13 +1,13 @@
 import { getEnv } from '@zouari-app/env';
 import { logger } from '@zouari-app/logger';
-import { drizzle } from 'drizzle-orm/postgres-js';
+import { drizzle, type PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import * as schema from './schema/index.js'; // Use .js extension for relative ESM imports
 
 /**
  * Type export for the Drizzle database instance.
  */
-export type Database = ReturnType<typeof drizzle<typeof schema>>;
+export type Database = PostgresJsDatabase<typeof schema>;
 
 /**
  * Singleton pattern for the database client.

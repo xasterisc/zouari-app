@@ -1,5 +1,5 @@
 {
-  "name": "@zouari-app/env",
+  "name": "@zouari-app/api",
   "version": "2.0.0",
   "private": true,
   "type": "module",
@@ -9,27 +9,25 @@
       "default": "./dist/index.js"
     }
   },
-  "main": "./dist/index.js",
-  "types": "./src/index.ts",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
+    "clean": "rm -rf dist",
     "lint": "biome check .",
     "format": "biome format --write .",
-    "clean": "rm -rf dist",
-    "type-check": "tsc --noEmit",
     "test": "vitest"
   },
   "dependencies": {
-    "@infisical/sdk": "^4.0.6",
-    "@zouari-app/validation": "workspace:*",
-    "@zouari-app/logger": "workspace:*",
+    "@zouari-app/auth": "workspace:*",
+    "@zouari-app/db": "workspace:*",
     "@zouari-app/errors": "workspace:*",
+    "@zouari-app/validation": "workspace:*",
+    "@trpc/server": "^11.7.1",
+    "drizzle-orm": "^0.44.7",
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@types/node": "^24.9.2",
-    "typescript": "^5.9.0",
-    "vitest": "^4.0.6"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.8"
   }
 }
