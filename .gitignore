@@ -1,7 +1,6 @@
 # Dependencies
 node_modules/
-.pnp
-.pnp.js
+.pnpm-store/
 
 # Build outputs
 dist/
@@ -15,7 +14,6 @@ out/
 .env
 .env.local
 .env.*.local
-!.env.example
 .envrc
 
 # Logs
@@ -49,7 +47,7 @@ coverage/
 *.pid.lock
 
 # Drizzle
-drizzle/
+# We MUST commit migration files, but ignore the 'meta' sub-folder.
 drizzle/meta/
 
 # Misc
