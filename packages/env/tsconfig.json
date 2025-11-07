@@ -7,13 +7,19 @@
     "declarationMap": true,
     "sourceMap": true,
 
-    // --- Monorepo Build Optimizations ---
-    "composite": true,
-    "incremental": true,
-
     // --- Output Directories ---
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+
+    // --- Modern ESM & Node.js Settings ---
+    // "NodeNext" is the correct setting for server-side packages
+    // that use "type": "module" in their package.json.
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    // --- Type Definitions ---
+    // Include Node.js-specific types
+    "types": ["node"]
   },
   // --- Files to Include/Exclude ---
   "include": ["src"],

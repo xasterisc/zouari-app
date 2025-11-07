@@ -1,17 +1,25 @@
 {
   "extends": "../../config/tsconfig.base.json",
   "compilerOptions": {
-    // --- Enable JS/Map Emission for this library ---
+    // --- Overrides for a buildable Node.js package ---
     "noEmit": false,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    // --- Monorepo Build Optimizations ---
-    "composite": true,
-    "incremental": true,
-    // --- Output ---
+
+    // --- Output Configuration ---
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+
+    // --- Modern ESM & Node.js Settings ---
+    // "NodeNext" is the correct setting for server-side packages
+    // that use "type": "module" in their package.json.
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    // --- Type Definitions ---
+    // Include Node.js-specific types
+    "types": ["node"]
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

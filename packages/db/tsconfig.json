@@ -1,19 +1,30 @@
 {
   "extends": "../../config/tsconfig.base.json",
   "compilerOptions": {
-    // --- Enable JS/Map Emission ---
+    // --- Overrides for a buildable package ---
+    // This package must emit its own JS files (and types) to be consumed by other packages.
     "noEmit": false,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
 
-    // --- Output Directories ---
+    // --- Output Configuration ---
+    // Match the "main" and "types" fields in package.json
     "outDir": "./dist",
+    "rootDir": "./src",
 
-    // --- Explicitly include Node types ---
+    // --- Modern ESM & Node.js Settings ---
+    // "NodeNext" is the enterprise-grade standard for modern ESM-first Node.js projects.
+    // It correctly handles "type": "module" in package.json.
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    // --- Type Definitions ---
+    // Add "node" types since we're in a Node.js environment (e.g., for 'postgres')
     "types": ["node"]
   },
-  // --- Files to Include/Exclude ---
-  "include": ["src", "*.ts"], // Include src/ and root .ts files
+  // Explicitly state what to compile
+  "include": ["src"],
+  // Explicitly state what to ignore
   "exclude": ["node_modules", "dist"]
 }

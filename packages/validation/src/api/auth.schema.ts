@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { emailSchema, passwordSchema } from './common.schema';
+import { emailSchema, passwordSchema } from './common.schema.js';
 
 /**
  * Schema for user registration (Sign Up).
