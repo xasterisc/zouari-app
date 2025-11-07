@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { emailSchema, idSchema, passwordSchema, userRoleSchema } from './common.schema';
+import { emailSchema, idSchema, passwordSchema, userRoleSchema } from './common.schema.js';
 
 // =================================================================
 // --- User Management Schemas (Input for API Endpoints) ---

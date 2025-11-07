@@ -1,3 +1,13 @@
+/**
+ * --------------------------------------------------------------------------
+ * @Zouari-app/validation
+ * --------------------------------------------------------------------------
+ * @fileoverview
+ * Zod schemas for environment variables.
+ *
+ * @version 2.0.0
+ * @see [Zod](https://zod.dev)
+ */
 import { z } from 'zod';
 
 /**
@@ -7,10 +17,6 @@ import { z } from 'zod';
  * These are the ONLY variables expected to be in `process.env`.
  */
 export const secretZeroSchema = z.object({
-  // --- Application Core ---
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
-  LOG_LEVEL: z.enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal']).default('info'),
-
   // --- Infisical (Secret Zero - Machine Identity) ---
   INFISICAL_PROJECT_ID: z.string().min(1, 'INFISICAL_PROJECT_ID is required'),
   INFISICAL_ENVIRONMENT: z.string().min(1, 'INFISICAL_ENVIRONMENT is required').default('dev'),
@@ -32,6 +38,11 @@ export type SecretZeroEnv = z.infer<typeof secretZeroSchema>;
  * after secrets have been fetched.
  */
 export const envSchema = z.object({
+  // --- Application Core (Moved from SecretZero) ---
+  // These are part of the application's config, not just the bootstrapper
+  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+  LOG_LEVEL: z.enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal']).default('info'),
+
   // --- Database (Fetched) ---
   DATABASE_URL: z.url({ message: 'DATABASE_URL must be a valid connection URL' }),
   DATABASE_POOL_MIN: z.coerce.number().int().min(0).default(2),
@@ -91,6 +102,7 @@ export const envSchema = z.object({
 
 /**
  * Represents the complete, validated environment, including fetched secrets.
+ * This is the type that `getEnv()` will return.
  */
 export type Env = z.infer<typeof envSchema>;
 

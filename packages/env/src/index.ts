@@ -125,7 +125,7 @@ async function loadAndValidateEnvironment(): Promise<Env> {
       {
         errorMessage,
         errorStatus,
-        errorDetails: secretZero.NODE_ENV === 'development' ? error : undefined,
+        errorDetails: process.env.NODE_ENV === 'development' ? error : undefined,
       },
       'Failed to authenticate with or fetch secrets from Infisical'
     );

@@ -15,12 +15,12 @@
  * const safeUser = apiValidation.user.userResponseSchema.parse(user);
 _ */
 
-import * as auth from './auth.schema';
-import * as common from './common.schema';
-import * as user from './user.schema';
+import * as auth from './auth.schema.js';
+import * as common from './common.schema.js';
+import * as user from './user.schema.js';
 // As your app grows, you'll add more here:
-// import * as project from './project.schema';
-// import * as billing from './billing.schema';
+// import * as project from './project.schema.js';
+// import * as billing from './billing.schema.js';
 
 export const apiValidation = {
   auth,
@@ -32,8 +32,8 @@ export const apiValidation = {
 
 // We also re-export all *types* for convenience.
 // This allows for clean type-only imports.
-export * from './auth.schema';
-export * from './common.schema';
-export * from './user.schema';
-// export * from './project.schema';
-// export * from './billing.schema';
+export * from './auth.schema.js';
+export * from './common.schema.js';
+export * from './user.schema.js';
+// export * from './project.schema.js';
+// export * from './billing.schema.js';

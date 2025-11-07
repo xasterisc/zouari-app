@@ -10,7 +10,7 @@
  */
 
 // Export the namespaced apiValidation object and all API types
-export * from './api';
+export * from './api/index.js';
 
 // Export all environment variable schemas and types
-export * from './env';
+export * from './env.js';

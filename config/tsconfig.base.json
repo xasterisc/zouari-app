@@ -11,6 +11,9 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+
+    // --- Monorepo Build Optimizations ---
+    "composite": true,
     "incremental": true,
 
     // --- Strictness & Code Quality ---
