@@ -1,0 +1,38 @@
+{
+  "name": "@zouari-app/api-server",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "clean": "rm -rf dist",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/cors": "^11.1.0",
+    "@fastify/helmet": "^13.0.2",
+    "@trpc/server": "^11.7.1",
+    "@zouari-app/api": "workspace:*",
+    "@zouari-app/auth": "workspace:*",
+    "@zouari-app/cache": "workspace:*",
+    "@zouari-app/db": "workspace:*",
+    "@zouari-app/env": "workspace:*",
+    "@zouari-app/errors": "workspace:*",
+    "@zouari-app/logger": "workspace:*",
+    "@zouari-app/tracing": "workspace:*",
+    "fastify": "^5.6.1",
+    "fastify-better-auth": "^1.2.0",
+    "fastify-plugin": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.8"
+  }
+}
