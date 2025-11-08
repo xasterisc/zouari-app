@@ -1,6 +1,7 @@
 import { dbPromise } from '@zouari-app/db';
 import { envPromise } from '@zouari-app/env';
 import { logger } from '@zouari-app/logger';
+import { hash, verify } from 'argon2';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
@@ -35,6 +36,16 @@ async function initializeAuth() {
       requireEmailVerification: env.NODE_ENV === 'production',
       minPasswordLength: 10,
       maxPasswordLength: 128,
+
+      password: {
+        hash: async (password) => {
+          // 'argon2id' is the default type for the 'hash' function
+          return hash(password, { type: 2 }); // type 2 is argon2id
+        },
+        verify: async ({ hash, password }) => {
+          return verify(hash, password);
+        },
+      },
     },
     socialProviders: {
       google: {
