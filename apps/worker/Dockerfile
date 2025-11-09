@@ -13,8 +13,7 @@ RUN apk add --no-cache libc6-compat python3 g++ make
 WORKDIR /app
 
 # Copy only the files needed for installation
-# This leverages Docker's cache. `pnpm install` only re-runs
-# if these manifest files change.
+# This leverages Docker's cache.
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json turbo.json ./
 COPY config ./config
 COPY packages/api/package.json ./packages/api/package.json
@@ -26,8 +25,7 @@ COPY packages/errors/package.json ./packages/errors/package.json
 COPY packages/logger/package.json ./packages/logger/package.json
 COPY packages/tracing/package.json ./packages/tracing/package.json
 COPY packages/validation/package.json ./packages/validation/package.json
-COPY apps/api/package.json ./apps/api/package.json
-# Add any other workspace package.json files here
+COPY apps/worker/package.json ./apps/worker/package.json
 
 # Install all dependencies (dev + prod)
 RUN pnpm install --frozen-lockfile
@@ -36,36 +34,25 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 # Build the target app and its dependencies
-RUN pnpm --filter @zouari-app/api-server build
+RUN pnpm --filter @zouari-app/worker build
 
 # Generate a pruned, production-only deployment folder
-RUN pnpm --filter @zouari-app/api-server deploy --prod /prod/api
+RUN pnpm --filter @zouari-app/worker deploy --prod /prod/worker
 
 # --- Runner Stage ---
 # Creates the final, small, and secure image for production.
 FROM node:24-alpine AS runner
 
-# Install 'curl' for the healthcheck
-RUN apk add --no-cache curl
-
 WORKDIR /app
 ENV NODE_ENV=production
 
 # Copy the pruned production app from the builder
-COPY --from=builder /prod/api .
+COPY --from=builder /prod/worker .
 
 # Add a non-root user for security
 RUN addgroup -S node && adduser -S node -G node
 RUN chown -R node:node /app
 USER node
 
-# Expose port
-EXPOSE 3001
-
-# Healthcheck
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD ["curl", "-f", "http://localhost:3001/health"]
-
 # Start server
-# The path is relative to the new root, pointing to the built file
-CMD ["node", "apps/api/dist/index.js"]
+CMD ["node", "apps/worker/dist/index.js"]
