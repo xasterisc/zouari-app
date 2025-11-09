@@ -1,0 +1,22 @@
+{
+  "extends": "../../config/tsconfig.base.json",
+  "compilerOptions": {
+    // --- Application Overrides ---
+    "noEmit": false,
+    "outDir": "./dist",
+
+    // --- Build Artifacts for Debugging ---
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+
+    // --- Module System (Enterprise Standard) ---
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+
+    // --- Type Definitions ---
+    "types": ["node"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

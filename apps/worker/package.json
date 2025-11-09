@@ -1,0 +1,34 @@
+{
+  "name": "@zouari-app/worker",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "clean": "rm -rf dist",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "test": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@zouari-app/cache": "workspace:*",
+    "@zouari-app/db": "workspace:*",
+    "@zouari-app/env": "workspace:*",
+    "@zouari-app/errors": "workspace:*",
+    "@zouari-app/logger": "workspace:*",
+    "@zouari-app/tracing": "workspace:*",
+    "drizzle-orm": "^0.44.7",
+    "bullmq": "^5.63.0",
+    "nodemailer": "^7.0.10"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "@types/nodemailer": "^7.0.3",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.8"
+  }
+}
