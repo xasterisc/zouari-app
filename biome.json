@@ -25,7 +25,13 @@
       },
       "suspicious": {
         "noExplicitAny": "warn",
-        "noArrayIndexKey": "warn"
+        "noArrayIndexKey": "warn",
+        "noUnknownAtRules": {
+          "level": "warn",
+          "options": {
+            "ignore": ["tailwind", "apply"]
+          }
+        }
       },
       "style": {
         "noNonNullAssertion": "warn",
@@ -51,6 +57,11 @@
       "semicolons": "always",
       "arrowParentheses": "always",
       "bracketSpacing": true
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   },
   "json": {
